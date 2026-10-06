@@ -57,4 +57,14 @@ class User extends Authenticatable // implements MustVerifyEmail
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('tasks');
+    }
 }

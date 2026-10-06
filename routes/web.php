@@ -2,21 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+use App\Http\Controllers\TasksController;
 
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
-
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+    Route::get('/', [TasksController::class, 'index'])->name('home');
+    Route::get('/dashboard', [TasksController::class, 'index'])->middleware(['auth'])->name('dashboard');
+    Route::resource('tasks', TasksController::class);
 });
 
 require __DIR__.'/auth.php';

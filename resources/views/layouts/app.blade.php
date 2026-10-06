@@ -14,6 +14,8 @@
         @include('commons.navbar')
 
         <div class="container mx-auto">
+            {{-- 成功メッセージ --}}
+            @include('commons.success_messages')
             {{-- エラーメッセージ --}}
             @include('commons.error_messages')
 
